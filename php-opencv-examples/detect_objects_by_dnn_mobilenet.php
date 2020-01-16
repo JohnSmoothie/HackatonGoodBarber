@@ -9,8 +9,10 @@ use function CV\{imread, cvtColor};
 $categories = explode("\n", file_get_contents('models/ssdlite_mobilenet_v2_coco/classes.txt'));
 
 //$src = imread("../img/sources/" . $image); // opencv loads image to matrix with BGR order
+
 $src = imread("../img/sources/objects.jpg");
 //$src = imread($image);
+
 //var_export($src);
 
 $blob = \CV\DNN\blobFromImage($src, 1, new \CV\Size(300,300), new Scalar(127.5, 127.5, 127.5), true, false); // convert image to 4 dimensions matrix
@@ -57,6 +59,8 @@ echo"<br><br><br>json data";
 $jsondata = json_encode($data,JSON_PRETTY_PRINT);
 var_dump($jsondata) ;
 
-echo"<br><br><br>json data end";
+
+echo "<br><br><br>json data end";
+
 \CV\imwrite("../img/results/_detect_objects_by_dnn_mobilenet.png", $src);
 echo "<img src='../img/results/_detect_objects_by_dnn_mobilenet.png'>";
