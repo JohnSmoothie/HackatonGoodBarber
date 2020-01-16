@@ -1,4 +1,17 @@
 <?php
+//***clear image folder
+$folder = '../image/';
+$files = glob($folder . '/*');
+ 
+foreach($files as $file){
+    //Make sure that this is a file and not a directory.
+    if(is_file($file)){
+        //Use the unlink function to delete the file.
+        unlink($file);
+    }
+}
+
+//***save image as image.extension
 $target_dir = "../image/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 $uploadOk = 1;
@@ -34,7 +47,7 @@ if ($uploadOk == 0) {
     echo "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
 } else {
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir . "image.png")) {  //$target_dir . "image.".$imageFileType;
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir . "image.".$imageFileType)) { 
         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
     } else {
         echo "Sorry, there was an error uploading your file.";
@@ -44,9 +57,10 @@ if ($uploadOk == 0) {
 $hauteur = $_POST['hauteur'];
 $largeur = $_POST['largeur'];
 
-header('location: ../index.html');
+//header('location: ../index.html');
 
-//header("location: ../index.html?h=$hauteur&l=$largeur");
+header("location: ../index.html?h=$hauteur&l=$largeur"); 
+
 
 ?>
 
