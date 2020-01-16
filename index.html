@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html>
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
@@ -7,6 +7,42 @@
     <script src="script/index.js"></script>
 </head>
 <body>
+<h1>Hackathon GoodBarber</h1>
 
+
+<form action="php/upload.php" method="post" enctype="multipart/form-data">
+    Select image to upload:
+    <input type="file" name="fileToUpload" id="file" accept=".jpg,.jpeg,.png" required/><br>
+    hauteur <input type="number" name="hauteur"><br>
+    largeur <input type="number" name="largeur"><br>
+    <input type="submit" value="Upload Image" name="submit">
+</form>
+
+<img id="preview" src="#" width="30%" height="30%" onerror="this.style.display='none'"/>
+
+
+<img id="imageSquares" src="#" onerror="this.style.display='none'"/>
+
+<input type="button" value="valider l'image" /> 
+
+<img id="imageCropped" src="#" onerror="this.style.display='none'"/>
+
+<script>
+    function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader(); 
+    reader.onload = function(e) {
+      $('#preview').attr('src', e.target.result);
+    }  
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+$("#file").change(function() {
+  readURL(this);
+  $('#preview').show();
+});
+
+</script>
 </body>
 </html>
