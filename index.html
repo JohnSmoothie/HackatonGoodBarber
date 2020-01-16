@@ -18,6 +18,13 @@
 
 <img id="preview" src="#" width="30%" height="30%" onerror="this.style.display='none'"/>
 
+
+<img id="imageSquares" src="#" onerror="this.style.display='none'"/>
+
+<input type="button" value="valider l'image" /> 
+
+<img id="imageCropped" src="#" onerror="this.style.display='none'"/>
+
 <script>
     function readURL(input) {
   if (input.files && input.files[0]) {
@@ -26,14 +33,12 @@
       $('#preview').attr('src', e.target.result);
     }  
     reader.readAsDataURL(input.files[0]);
-
   }
 }
 
 $("#file").change(function() {
   readURL(this);
   $('#preview').show();
-  $('#sendImg').show();
 });
 
 </script>
