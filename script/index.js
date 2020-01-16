@@ -1,17 +1,17 @@
 $(document).ready(function(){
 
+    var nomImage = "objects.jpg";
+
+    console.log("truc");
+
     $.ajax({
         type: 'GET',
-        url: '../data/sport.json',
-        dataType: 'json',
+        url: 'php-opencv-examples/detect_objects_by_dnn_mobilenet.php',
+        data: {
+            ImageName: nomImage
+        },
         success: function (data) {
             console.log(data);
-
-            $.each(data.sport,function(i,sport) {
-                var option= new Option(sport, sport);
-                $(option).html(sport);
-                $("#sport").append(option);
-            });
         }
     });
 
