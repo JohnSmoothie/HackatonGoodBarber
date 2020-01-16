@@ -1,6 +1,6 @@
 <?php
-    function detourage($tabArg, $pathSource, $largeurCible=NULL, $hauteurCible=NULL)
-    //arg = [$x1, $y1, $x2, $y2]
+    function detourage($json, $pathSource, $largeurCible=NULL, $hauteurCible=NULL)
+    //json = [$x1, $y1, $x2, $y2]
     {
         $extension = image_type_to_extension(getimagesize($pathSource)[2]);
         try{
@@ -10,11 +10,17 @@
             throw new Exception("Error extension : ".$e, 1);
         }
         
-
         $x1 = PHP_INT_MAX;
         $y1 = PHP_INT_MAX;
         $x2 = 0;
         $y2 = 0;
+
+        $tabArg = array();
+        $rectangles = json_decode($json, true);
+        //print_r($rectangles);
+        foreach ($rectangles as $rectangle){
+            array_push($tabArg, array($rectangle["x1"], $rectangle["y1"], $rectangle["x2"], $rectangle["y2"]));
+        }
 
         foreach ($tabArg as $arguments){
             $x1 = min($x1, $arguments[0]);
@@ -57,5 +63,17 @@
         imagedestroy($im);
         imagedestroy($imCrop);
     }
-    detourage(array(array(450, 180, 560, 450)), "../images/image.jpg", NULL, NULL);
+    detourage('[{
+            "x1": 450,
+            "y1": 180,
+            "x2": 560,
+            "y2": 450
+        }, 
+        {
+            "x1": 100,
+            "y1": 10,
+            "x2": 150,
+            "y2": 50
+        }
+    ]', "../images/image.jpg", NULL, NULL);
 ?>
