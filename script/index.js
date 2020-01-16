@@ -7,7 +7,6 @@ $(document).ready(function(){
 
         var nomImage = "../img/sources/objects.jpg";
 
-
         $.ajax({
             type: 'GET',
             url: 'php-opencv-examples/detect_objects_by_dnn_mobilenet.php',
@@ -47,5 +46,4 @@ $(document).ready(function(){
         });
 
     });
-
 });
