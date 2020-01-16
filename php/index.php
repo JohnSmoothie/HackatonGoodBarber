@@ -43,13 +43,19 @@
         $width = 1.05*($x2-$x1);
         $height = 1.05*($y2-$y1);
 
+        echo $height;
+
         if ($largeurCible != NULL) {
-            $width = $largeurCible;
-            $x1 = $x1-intdiv($largeurCible-$width, 2);
+            $width = max($largeurCible, $width);
+            if ($largeurCible==$width) {
+                $x1 = $x1-intdiv($largeurCible-$width, 2);
+            }
         }
         if ($hauteurCible != NULL) {
-            $height = $hauteurCible;
-            $y1 = $y1-intdiv($hauteurCible-$height, 2);
+            $height = max($hauteurCible, $height);
+            if ($hauteurCible==$height) {
+                $y1 = $y1-intdiv($hauteurCible-$height, 2);
+            }
         }
 
 
