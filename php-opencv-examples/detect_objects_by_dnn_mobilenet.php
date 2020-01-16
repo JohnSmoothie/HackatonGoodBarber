@@ -1,17 +1,18 @@
 <?php
-
+header("Content-Type:application/json");
 use CV\Scalar;
 use function CV\{imread, cvtColor};
 
-//$image = $_GET["nomImage"];
+$image = $_GET["nomImage"];
+
 
 //$categories = explode("\n", file_get_contents('models/ssd_mobilenet_v1_coco/classes.txt'));
 $categories = explode("\n", file_get_contents('models/ssdlite_mobilenet_v2_coco/classes.txt'));
 
 //$src = imread("../img/sources/" . $image); // opencv loads image to matrix with BGR order
 
-$src = imread("../img/sources/objects.jpg");
-//$src = imread($image);
+//$src = imread("../img/sources/objects.jpg");
+$src = imread($image);
 
 //var_export($src);
 
@@ -24,9 +25,11 @@ $net = \CV\DNN\readNetFromTensorflow('models/ssdlite_mobilenet_v2_coco/frozen_in
 $net->setInput($blob, "");
 
 $r = $net->forward();
-var_export($r);
-$data = array(array());
+//var_export($r);
+//echo "titi";
+$data = array();
 $coord = array();
+
 $rectangles = [];
 for ($i = 0; $i < $r->shape[2]; $i++) {
     $classId = $r->atIdx([0,0,$i,1]);
@@ -43,6 +46,7 @@ for ($i = 0; $i < $r->shape[2]; $i++) {
         $coord["endY"] = $endY ;       
         $coord["pourcentage"] = $confidence;
         $data[$i] = $coord;
+        //array_push($data, $coord);
         $scalar = new Scalar(0, 0, 255);
         \CV\rectangle($src, $startX, $startY, $endX, $endY, $scalar, 2);
 
@@ -52,15 +56,11 @@ for ($i = 0; $i < $r->shape[2]; $i++) {
     }
 
 }
-echo "data <br>";
-echo "<br><br>";
-
-echo"<br><br><br>json data";
-$jsondata = json_encode($data,JSON_PRETTY_PRINT);
-var_dump($jsondata) ;
 
 
-echo "<br><br><br>json data end";
+$jsondata = json_encode($data);
+
+echo $jsondata;
 
 \CV\imwrite("../img/results/_detect_objects_by_dnn_mobilenet.png", $src);
-echo "<img src='../img/results/_detect_objects_by_dnn_mobilenet.png'>";
+//echo "<img src='../img/results/_detect_objects_by_dnn_mobilenet.png'>";
