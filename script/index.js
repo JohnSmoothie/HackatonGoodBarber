@@ -1,8 +1,6 @@
 $(document).ready(function(){
 
-    var nomImage = "objects.jpg";
-
-    console.log("truc");
+    var nomImage = "../img/sources/objects.jpg";
 
     $.ajax({
         type: 'GET',
@@ -12,6 +10,13 @@ $(document).ready(function(){
         },
         success: function (data) {
             console.log(data);
+            data.each(function (rectangle) {
+                var startX = rectangle.startX;
+                var startY = rectangle.startY;
+                var endX = rectangle.endX;
+                var endY = rectangle.endY;
+                var pourcentage = rectangle.pourcentage;
+            });
         }
     });
 

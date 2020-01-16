@@ -9,7 +9,7 @@ $image = $_GET["nomImage"];
 $categories = explode("\n", file_get_contents('models/ssdlite_mobilenet_v2_coco/classes.txt'));
 
 //$src = imread("../img/sources/" . $image); // opencv loads image to matrix with BGR order
-$src = imread("../img/sources/objects.jpg");
+$src = imread("../img/sources/object2.jpg");
 //var_export($src);
 
 $blob = \CV\DNN\blobFromImage($src, 0.017, new \CV\Size(300,300), new Scalar(127.5, 127.5, 127.5), true, false); // convert image to 4 dimensions matrix
@@ -42,4 +42,4 @@ for ($i = 0; $i < $r->shape[2]; $i++) {
     }
 }
 
-\CV\imwrite("../img/results/_detect_objects_by_dnn_mobilenet.png", $src);
+\CV\imwrite("../img/results/object2.png", $src);
