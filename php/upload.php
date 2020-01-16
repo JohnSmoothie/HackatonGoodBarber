@@ -20,10 +20,10 @@ if(isset($_POST["submit"])) {
     $uploadOk = 0;
 }*/
 // Check file size
-if ($_FILES["fileToUpload"]["size"] > 5000000) {
+/*if ($_FILES["fileToUpload"]["size"] > 5000000) {
   //  echo "Sorry, your file is too large.";
     $uploadOk = 0;
-}
+}*/
 // Allow certain file formats
 if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg") {
   //  echo "Sorry, only JPG, JPEG, PNG files are allowed.";
@@ -34,17 +34,19 @@ if ($uploadOk == 0) {
     echo "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
 } else {
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir . "image.png")) {  //$target_dir . "image.".$imageFileType;
         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
     } else {
         echo "Sorry, there was an error uploading your file.";
     }
 }
 
+$hauteur = $_POST['hauteur'];
+$largeur = $_POST['largeur'];
 
+header('location: ../index.html');
 
+//header("location: ../index.html?h=$hauteur&l=$largeur");
 
-
-
-$imagePath = "../image/"+basename( $_FILES["fileToUpload"]["name"]); //path of image
 ?>
+
