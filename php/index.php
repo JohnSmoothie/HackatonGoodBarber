@@ -5,9 +5,6 @@
     $hauteur = $_POST["hauteur"];
     $largeur = $_POST["largeur"];
 
-
-
-
     function detourage($json, $pathSource, $largeurCible, $hauteurCible)
     //json = [$x1, $y1, $x2, $y2]
     {
@@ -43,8 +40,6 @@
         $width = 1.05*($x2-$x1);
         $height = 1.05*($y2-$y1);
 
-        echo $height;
-
         if ($largeurCible != NULL) {
             $width = max($largeurCible, $width);
             if ($largeurCible==$width) {
@@ -73,7 +68,7 @@
         
         $imCrop = imagecrop($im, ['x' => $x1, 'y' => $y1, 'width' => $width, 'height' => $height]);
   
-        imagejpeg($imCrop,  "../crop/".explode(".", basename($pathSource))[0]."_crop.jpg");
+        imagejpeg($imCrop,  "../img/crop/".explode(".", "image_crop.jpg"));
         // Libération de la mémoire
         imagedestroy($im);
         imagedestroy($imCrop);

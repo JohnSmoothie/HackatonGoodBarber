@@ -2,6 +2,10 @@ $(document).ready(function(){
 
     var valider = $("valider");
 
+    var imgSquare = $("imgSquare");
+
+    var imgCrop = $("imgCrop");
+
 
     valider.click(function () {
         var dict = {};
@@ -33,6 +37,8 @@ $(document).ready(function(){
 
                 });
 
+                imgSquare.prepend($('<img>',{id:'imageSquares',src:'img/results/result.png'}));
+
                 console.log(dict);
             }
         });
@@ -48,7 +54,7 @@ $(document).ready(function(){
                 largeur: largeur,
             },
             success: function (data) {
-
+                imgSquare.prepend($('<img>',{id:'imageCropped',src:'img/crop/image_crop.png'}));
             }
         });
 
