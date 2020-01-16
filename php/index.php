@@ -1,5 +1,14 @@
 <?php
-    function detourage($json, $pathSource, $largeurCible=NULL, $hauteurCible=NULL)
+
+    $json = $_POST["rectangle"];
+    $path = $_POST["path"];
+    $hauteur = $_POST["hauteur"];
+    $largeur = $_POST["largeur"];
+
+
+
+
+    function detourage($json, $pathSource, $largeurCible, $hauteurCible)
     //json = [$x1, $y1, $x2, $y2]
     {
         $extension = image_type_to_extension(getimagesize($pathSource)[2]);
@@ -63,17 +72,7 @@
         imagedestroy($im);
         imagedestroy($imCrop);
     }
-    detourage('[{
-            "x1": 450,
-            "y1": 180,
-            "x2": 560,
-            "y2": 450
-        }, 
-        {
-            "x1": 100,
-            "y1": 10,
-            "x2": 150,
-            "y2": 50
-        }
-    ]', "../images/image.jpg", NULL, NULL);
+
+    detourage($json, $path, $largeur, $hauteur);
+
 ?>

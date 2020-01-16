@@ -1,11 +1,16 @@
 $(document).ready(function(){
 
-    var valider = $("");
+    var valider = $("valider");
+
 
     valider.click(function () {
         var dict = {};
 
-        var nomImage = "../img/sources/objects.jpg";
+        var nomImage = "../img/sources/image.jpg";
+
+        var largeur = $("largeur");
+
+        var hauteur = $("hauteur")
 
         $.ajax({
             type: 'GET',
@@ -38,7 +43,9 @@ $(document).ready(function(){
             url: 'php/index.php',
             data: {
                 rectangle: JSON.stringify({dict : dict}),
-
+                path: '/img/results/result.png',
+                hauteur: hauteur,
+                largeur: largeur,
             },
             success: function (data) {
 

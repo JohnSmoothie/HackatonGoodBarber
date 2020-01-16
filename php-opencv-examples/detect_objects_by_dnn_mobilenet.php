@@ -62,5 +62,5 @@ $jsondata = json_encode($data);
 
 echo $jsondata;
 
-\CV\imwrite("../img/results/_detect_objects_by_dnn_mobilenet.png", $src);
+\CV\imwrite("../img/results/result.png", $src);
 //echo "<img src='../img/results/_detect_objects_by_dnn_mobilenet.png'>";
