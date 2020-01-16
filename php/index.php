@@ -34,13 +34,19 @@
         $width = 1.05*($x2-$x1);
         $height = 1.05*($y2-$y1);
 
+        echo $height;
+
         if ($largeurCible != NULL) {
-            $width = $largeurCible;
-            $x1 = $x1-intdiv($largeurCible-$width, 2);
+            $width = max($largeurCible, $width);
+            if ($largeurCible==$width) {
+                $x1 = $x1-intdiv($largeurCible-$width, 2);
+            }
         }
         if ($hauteurCible != NULL) {
-            $height = $hauteurCible;
-            $y1 = $y1-intdiv($hauteurCible-$height, 2);
+            $height = max($hauteurCible, $height);
+            if ($hauteurCible==$height) {
+                $y1 = $y1-intdiv($hauteurCible-$height, 2);
+            }
         }
 
 
@@ -68,12 +74,6 @@
             "y1": 180,
             "x2": 560,
             "y2": 450
-        }, 
-        {
-            "x1": 100,
-            "y1": 10,
-            "x2": 150,
-            "y2": 50
         }
-    ]', "../images/image.jpg", NULL, NULL);
+    ]', "../images/image.jpg", NULL, 100);
 ?>
