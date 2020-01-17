@@ -6,7 +6,8 @@ $(document).ready(function(){
     valider.click(function () {
         var dict = [];
         
-        var nomImage = "../img/sources/object6.jpg";
+        //en enregitre tjr l'image recuperé sous form jpg !! 
+        var nomImage = "../img/sources/image.jpg";
 
         var largeur = $("#largeur").val();
 
@@ -42,8 +43,8 @@ $(document).ready(function(){
 
                     data: {
                         rectangle: JSON.stringify({dict:dict}),
-        
-                        path: '/img/results/object6.png',
+                        path: '../img/results/result.png',
+                        //path: '/img/results/object6.png',
                         hauteur: hauteur,
                         largeur: largeur,
                     },

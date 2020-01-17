@@ -3,7 +3,6 @@
     //phpinfo();
     $json = $_POST["rectangle"];
     $path = $_POST["path"];
-    $path = "..".$path;
     $hauteur = $_POST["hauteur"];
     $largeur = $_POST["largeur"];
 
@@ -33,8 +32,8 @@
         try{
           
             //faut que l'image soit en png !!
-            //$im = imagecreatefrompng($pathSource);
-            $im = imagecreatefrompng("../img/results/result.png");
+            $im = imagecreatefrompng($pathSource);
+            //$im = imagecreatefrompng("../img/results/result.png");
             echo "$im";
         }
         
