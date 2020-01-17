@@ -52,6 +52,7 @@
         //print_r($rectangles);
         //echo " ";
         //echo "_";
+        
 
 
         foreach ($rectangles as $rectangle){
@@ -62,7 +63,26 @@
             }
         }
 
+        $surfaceMoyenne = 0;
+        foreach ($tabArg as $rectangle){
+            $surfaceMoyenne = ($rectangle["2"]-$rectangle["0"])*($rectangle["3"]-$rectangle["1"]);
+        }
+        $surfaceMoyenne = $surfaceMoyenne/(count($tabArg));
+
+        //print_r(count($tabArg));
+        foreach ($tabArg as $i=>$rectangle){
+            if (($rectangle["2"]-$rectangle["0"])*($rectangle["3"]-$rectangle["1"])< $surfaceMoyenne){
+                //print_r("!!!!!!!!!!");
+                //print_r($i);
+                //print_r("!!!!");
+                unset($tabArg[$i]);
+            }
+        }
+        //print_r("____");
         print_r($tabArg);
+
+        //print_r($surfaceMoyenne);
+        //print_r($tabArg);
         
         foreach ($tabArg as $arguments){
             $x1 = min($x1, $arguments[0]);
@@ -101,14 +121,14 @@
         $y1 = max($y1, 0);
         $width = min(imagesx($im), $width);
         $height = min(imagesy($im), $height);
-        echo "\n x1 : $x1";
-        echo "\n y1 : $y1";
-        echo "\n width $width";
-        echo "\n height $height";
+        //echo "\n x1 : $x1";
+        //echo "\n y1 : $y1";
+        //echo "\n width $width";
+        //echo "\n height $height";
         $imCrop = imagecrop($im, ['x' => $x1, 'y' => $y1, 'width' => $width, 'height' => $height]);
       
         $p = "../img/crop/".explode(".", basename($pathSource))[0]."_crop2.jpeg";
-        echo $p;
+        //echo $p;
         
        // $b = imagejpeg($imCrop, $p);
        imagepng($imCrop,$p);
