@@ -1,20 +1,20 @@
 <?php
      //header('Content-Type: image/jpeg');
     //phpinfo();
-    $json = $_POST["rectangle"];
+   /* $json = $_POST["rectangle"];
     $path = $_POST["path"];
     $path = "..".$path;
     $hauteur = $_POST["hauteur"];
     $largeur = $_POST["largeur"];
-
-       
+*/
+    /*   
     try{
         $json = json_decode($json);
     }
     catch(Exception $e){
         echo $e->getMessage() ;
     }
-    
+    */
     
      
 
@@ -28,7 +28,7 @@
             //faut que l'image soit en png !!
             //$im = imagecreatefrompng($pathSource);
             $im = imagecreatefrompng("../img/results/result.png");
-            echo "$im";
+            //echo "$im";
         }
         
         catch(Exception $e){
@@ -43,15 +43,23 @@
         $y2 = 0;
 
         $tabArg = array();
-        $rectangles = json_decode($json, true);
-        echo $rectangles;
-        echo "_";
-        $rectangles = $rectangles["dict"];
+        $json = str_replace("'", '"', $json);
+        //echo $json;
+        $rectangles = json_decode($json);
+        //$temp = json_decode('{"dict":[[1868.0592041015625,1431.3135738372803,2956.51407623291,2809.6590728759766]]}');
+        //print_r($temp);
         //print_r($rectangles);
-        foreach ($rectangles as $rectangle){
+        //echo " ";
+        //echo "_";
 
-            echo "_".$rectangle;
-            array_push($tabArg, array($rectangle["x1"], $rectangle["y1"], $rectangle["x2"], $rectangle["y2"]));
+
+        foreach ($rectangles as $rectangle){
+            foreach ($rectangle as $rec){
+                print_r($rec);
+                echo "\n";
+                array_push($tabArg, array($rec["0"], $rec["1"], $rec["2"], $rec["3"]));
+            }
+            
         }
         
         foreach ($tabArg as $arguments){
@@ -103,14 +111,15 @@
         echo $p;
         
        // $b = imagejpeg($imCrop, $p);
-       imagepng($im,$p);
+       imagepng($imCrop,$p);
         //echo "ret $b";
         // Libération de la mémoire
         imagedestroy($im);
         imagedestroy($imCrop);
     }
     
-    detourage($json, $path, $largeur, $hauteur);
+    //detourage($json, $path, $largeur, $hauteur);
+    detourage("{'dict':[[1868.0592041015625,1431.3135738372803,2956.51407623291,2809.6590728759766]]}", "../images/image.jpg", 500, 500);
      /*
     out put  d'index
     {$JSON "dict":[[1868.0592041015625,1431.3135738372803,2956.51407623291,2809.6590728759766]]}
