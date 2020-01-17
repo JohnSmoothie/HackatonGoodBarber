@@ -3,29 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <title>Index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="lib/jquery-3.4.1.js"></script>
     <script src="script/index.js"></script>
+    
 </head>
 <body>
-<h1>Hackathon GoodBarber</h1>
+<h1 style="text-align: center;">Hackathon GoodBarber</h1>
+
+<div class="container">
+  <div class="row">
+  <form class="col-6 mx-auto " action="php/upload.php" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+      <label >Select image to upload:</label>
+      <input class="form-control" type="file" name="fileToUpload" id="file" accept=".jpg,.jpeg,.png" required/><br>
+      <label >hauteur </label>
+      <input class="form-control" type="number" name="hauteur" id="hauteur"><br>
+      <label >largeur</label>
+      <input class="form-control" type="number" name="largeur" id="largeur"><br>
+      <input class="btn btn-primary" type="submit" value="Upload Image" name="submit">
+    </div>
+  </form>
+</div>
+</div>
+<div class="container">
+  <div class="row">
+    <img id="preview" src="#" width="30%" height="30%" onerror="this.style.display='none'"/>
+  </div>
+  <div class="row">
+    <img class="img-thumbnail" id="imageSquares" src="#" onerror="this.style.display='none'"/>
+  </div>
+  <div class="row">
+    <input class="btn btn-primary" type="button" value="valider l'image" id="valider" />
+  </div>
+  <div class="row">
+    <img class="img-thumbnail" id="imageCropped" src="#" onerror="this.style.display='none'"/>
+  </div>
+</div>
 
 
-<form action="php/upload.php" method="post" enctype="multipart/form-data">
-    Select image to upload:
-    <input type="file" name="fileToUpload" id="file" accept=".jpg,.jpeg,.png" required/><br>
-    hauteur <input type="number" name="hauteur" id="hauteur"><br>
-    largeur <input type="number" name="largeur" id="largeur"><br>
-    <input type="submit" value="Upload Image" name="submit">
-</form>
-
-<img id="preview" src="#" width="30%" height="30%" onerror="this.style.display='none'"/>
 
 
-<div id="imgSquare"></div>
-
-<input type="button" value="valider l'image" id="valider" />
-
-<div id="imgCrop"></div>
 
 <script>
     function readURL(input) {
