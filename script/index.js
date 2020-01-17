@@ -2,15 +2,12 @@ $(document).ready(function(){
 
     var valider = $("#valider");
 
-    var imgSquare = $("imgSquare");
-
-    var imgCrop = $("imgCrop");
-
 
     valider.click(function () {
         var dict = [];
         
-        var nomImage = "../img/sources/object6.jpg";
+        //en enregitre tjr l'image recuperé sous form jpg !! 
+        var nomImage = "../img/sources/image.jpg";
 
         var largeur = $("#largeur").val();
 
@@ -38,8 +35,7 @@ $(document).ready(function(){
                     dict.push(list);
 
                 });
-          imgSquare.prepend($('<img>',{id:'imageSquares',src:'img/results/result.png'}));
-
+                console.log('depart');
                 console.log(dict);
                 $.ajax({
                     type: 'POST',
@@ -47,8 +43,8 @@ $(document).ready(function(){
 
                     data: {
                         rectangle: JSON.stringify({dict:dict}),
-        
-                        path: '/img/results/object6.png',
+                        path: '../img/results/result.png',
+                        //path: '/img/results/object6.png',
                         hauteur: hauteur,
                         largeur: largeur,
                     },
@@ -59,18 +55,9 @@ $(document).ready(function(){
                 console.log('fin');
             }
 
-        $.ajax({
-            type: 'POST',
-            url: 'php/index.php',
-            data: {
-                rectangle: JSON.stringify({dict : dict}),
-                path: '/img/results/result.png',
-                hauteur: hauteur,
-                largeur: largeur,
-            },
-            success: function (data) {
-                imgSquare.prepend($('<img>',{id:'imageCropped',src:'img/crop/image_crop.png'}));
-            }
+
+           
+    
         });
 
 

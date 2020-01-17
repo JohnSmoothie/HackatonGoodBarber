@@ -1,9 +1,8 @@
 <?php
-     header('Content-Type: image/jpeg');
+     //header('Content-Type: image/jpeg');
     //phpinfo();
    $json = $_POST["rectangle"];
     $path = $_POST["path"];
-    $path = "..".$path;
     $hauteur = $_POST["hauteur"];
     $largeur = $_POST["largeur"];
 
@@ -21,9 +20,9 @@
     //json = [$x1, $y1, $x2, $y2]
     {
         
-        
+
         try{
-          
+            
             //faut que l'image soit en png !!
             //$im = imagecreatefrompng($pathSource);
             $im = imagecreatefrompng($pathSource);
@@ -36,21 +35,24 @@
             throw new Exception("Error extension : png attendu -> ".$e, 1);
         }
        
-        //echo "___";
+        echo "___";
         $x1 = PHP_INT_MAX;
         $y1 = PHP_INT_MAX;
         $x2 = 0;
         $y2 = 0;
 
         $tabArg = array();
-        $json = str_replace("'", '"', $json);
+        //var_dump($json);
+        //$json = str_replace("'", '"', $json);
         //echo $json;
-        $rectangles = json_decode($json);
+        
+        $rectangles = $json;
+        echo "after";
         //$temp = json_decode('{"dict":[[1868.0592041015625,1431.3135738372803,2956.51407623291,2809.6590728759766]]}');
         //print_r($temp);
-        //print_r($rectangles);
+        print_r($rectangles);
         //echo " ";
-        //echo "_";
+        echo "deode_";
         
 
 
@@ -120,19 +122,17 @@
         $y1 = max($y1, 0);
         $width = min(imagesx($im), $width);
         $height = min(imagesy($im), $height);
-        //echo "\n x1 : $x1";
-        //echo "\n y1 : $y1";
-        //echo "\n width $width";
-        //echo "\n height $height";
+
         $imCrop = imagecrop($im, ['x' => $x1, 'y' => $y1, 'width' => $width, 'height' => $height]);
-      
-        $p = "../img/crop/".explode(".", basename($pathSource))[0]."_crop2.jpeg";
-        //echo $p;
-        
-       // $b = imagejpeg($imCrop, $p);
+        print_r($imCrop);
+        echo $pathSource;
+        $p = "../img/crop/".explode(".", basename($pathSource))[0]."_crop2.png";
+        echo $p;
+        print_r(['x' => $x1, 'y' => $y1, 'width' => $width, 'height' => $height]);
+       // imagejpeg($imCrop, $p);
        imagepng($imCrop,$p);
         //echo "ret $b";
-      
+        echo "fin";
         // Libération de la mémoire
         imagedestroy($im);
         imagedestroy($imCrop);
@@ -144,9 +144,9 @@
     detourage($json, $path, $largeur, $hauteur);
 
     /*  arg fonctionnel :::::    
-    
+             [[126.75677654147148,42.11297017335892,196.3983894586563,163.9750099182129]]}
     '{"dict":[[2451.168972015381,1181.9971132278442,3466.7012672424316,2323.7029237747192],[2611.9561500549316,1342.7636232376099,3086.913242340088,2143.1909952163696],[2734.6430168151855,1278.3356065750122,3400.8985862731934,2100.757487297058],[1152.781831741333,740.3443279266357,3128.3105850219727,2959.332618713379],[2061.0399627685547,1065.4829578399658,3531.100685119629,2775.742115020752]]}
-
+../img/results/result.png
     ', "../img/results/result3.png", 500, 500*/
      /*
     out put  d'index
