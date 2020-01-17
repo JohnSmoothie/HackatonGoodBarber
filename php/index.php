@@ -7,7 +7,11 @@
     $hauteur = $_POST["hauteur"];
     $largeur = $_POST["largeur"];
 
-    
+    /*
+    out put  d'index
+{"dict":[[1868.0592041015625,1431.3135738372803,2956.51407623291,2809.6590728759766]]}object(stdClass)#1 (1) { ["dict"]=> array(1) { [0]=> array(4) { [0]=> float(1868.0592041016) [1]=> float(1431.3135738373) [2]=> float(2956.5140762329) [3]=> float(2809.659072876) } } } Resource id #4____x1 org: 9223372036854775807y1 org: 9223372036854775807width org height org x1 : 3532 y1 : 2524 width 500 height 500../img/crop/object6_crop2.jpeg
+
+    */
     
     
     echo $json;
