@@ -26,7 +26,7 @@ $net->setInput($blob, "");
 
 $r = $net->forward();
 //var_export($r);
-
+//echo "titi";
 $data = array();
 $coord = array();
 
@@ -34,23 +34,24 @@ $rectangles = [];
 for ($i = 0; $i < $r->shape[2]; $i++) {
     $classId = $r->atIdx([0,0,$i,1]);
     $confidence = intval($r->atIdx([0,0,$i,2]) * 100);
-    if ($classId && $confidence > 20) {
+    if ($classId && $confidence > 30) {
         $startX = $r->atIdx([0,0,$i,3]) * $src->cols;
         $startY = $r->atIdx([0,0,$i,4]) * $src->rows;
         $endX = $r->atIdx([0,0,$i,5]) * $src->cols;
         $endY = $r->atIdx([0,0,$i,6]) * $src->rows;
-       
+        
+
         $coord["startX"] = $startX;
         $coord["startY"] = $startY;
         $coord["endX"] = $endX;
-        $coord["endY"] = $endY ;    
+        $coord["endY"] = $endY ;       
         
-        $g = $r->atIdx([0,0,$i,3]);
-        
+       // $coord["pourcentage"] = $confidence;
+        //$data[$i] = $coord;
         array_push($data, $coord);
         $scalar = new Scalar(0, 0, 255);
         \CV\rectangle($src, $startX, $startY, $endX, $endY, $scalar, 2);
-        
+        //var_dump($coord);
         $text = "{$categories[$classId]} $confidence%";
         \CV\rectangle($src, $startX, $startY + 10, $startX + 20 * strlen($text), $startY - 30, new Scalar(255,255,255), -2);
         \CV\putText($src, "{$categories[$classId]} $confidence%", new \CV\Point($startX, $startY - 2), 0, 1.5, new Scalar(), 2);

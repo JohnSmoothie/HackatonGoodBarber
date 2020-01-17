@@ -1,36 +1,20 @@
 <?php
      //header('Content-Type: image/jpeg');
     //phpinfo();
-    $json = $_POST["rectangle"];
+   /* $json = $_POST["rectangle"];
     $path = $_POST["path"];
+    $path = "..".$path;
     $hauteur = $_POST["hauteur"];
     $largeur = $_POST["largeur"];
-
-    /*
-    out put  d'index
-{"dict":[[1868.0592041015625,1431.3135738372803,2956.51407623291,2809.6590728759766]]}object(stdClass)#1 (1) { ["dict"]=> array(1) { [0]=> array(4) { [0]=> float(1868.0592041016) [1]=> float(1431.3135738373) [2]=> float(2956.5140762329) [3]=> float(2809.659072876) } } } Resource id #4____x1 org: 9223372036854775807y1 org: 9223372036854775807width org height org x1 : 3532 y1 : 2524 width 500 height 500../img/crop/object6_crop2.jpeg
-
-    */
-
-
-    /*
-    out put 2
-{"dict":[[324.3850326538086,313.5175609588623,655.1875305175781,882.8359222412109],[555.1160430908203,254.24660682678223,721.3845062255859,556.8390655517578],[416.9395446777344,309.0864658355713,706.1710357666016,824.9712753295898],[315.7160949707031,673.2893371582031,571.0444641113281,907.2530364990234]]}
-    */
-    
-    /*
-    out put 3
-{"dict":[[2451.168972015381,1181.9971132278442,3466.7012672424316,2323.7029237747192],[2611.9561500549316,1342.7636232376099,3086.913242340088,2143.1909952163696],[2734.6430168151855,1278.3356065750122,3400.8985862731934,2100.757487297058],[1152.781831741333,740.3443279266357,3128.3105850219727,2959.332618713379],[2061.0399627685547,1065.4829578399658,3531.100685119629,2775.742115020752]]}
-    */
-    
-    echo $json;
+*/
+    /*   
     try{
         $json = json_decode($json);
     }
     catch(Exception $e){
         echo $e->getMessage() ;
     }
-    
+    */
     
      
 
@@ -42,31 +26,43 @@
         try{
           
             //faut que l'image soit en png !!
+            //$im = imagecreatefrompng($pathSource);
             $im = imagecreatefrompng($pathSource);
-            //$im = imagecreatefrompng("../img/results/result.png");
-            echo "$im";
+            //echo "$im";
         }
         
         catch(Exception $e){
+            
             echo "catch";
-            throw new Exception("Error extension : ".$e, 1);
+            throw new Exception("Error extension : png attendu -> ".$e, 1);
         }
-        
-        echo "___";
+       
+        //echo "___";
         $x1 = PHP_INT_MAX;
         $y1 = PHP_INT_MAX;
         $x2 = 0;
         $y2 = 0;
 
         $tabArg = array();
-        $rectangles = json_decode($json, true);
-        echo $rectangles;
-        echo "_";
+        $json = str_replace("'", '"', $json);
+        //echo $json;
+        $rectangles = json_decode($json);
+        //$temp = json_decode('{"dict":[[1868.0592041015625,1431.3135738372803,2956.51407623291,2809.6590728759766]]}');
+        //print_r($temp);
         //print_r($rectangles);
+        //echo " ";
+        //echo "_";
+
+
         foreach ($rectangles as $rectangle){
-            echo "_".$rectangle;
-            array_push($tabArg, array($rectangle["x1"], $rectangle["y1"], $rectangle["x2"], $rectangle["y2"]));
+            foreach ($rectangle as $rec){
+                //print_r($rec);
+                //echo "\n";
+                array_push($tabArg, array($rec["0"], $rec["1"], $rec["2"], $rec["3"]));
+            }
         }
+
+        print_r($tabArg);
         
         foreach ($tabArg as $arguments){
             $x1 = min($x1, $arguments[0]);
@@ -117,13 +113,29 @@
         echo $p;
         
        // $b = imagejpeg($imCrop, $p);
-       imagepng($im,$p);
+       imagepng($imCrop,$p);
         //echo "ret $b";
         // Libération de la mémoire
         imagedestroy($im);
         imagedestroy($imCrop);
     }
+
     
-    detourage($json, $path, $largeur, $hauteur);
+    
+    //detourage($json, $path, $largeur, $hauteur);
+    detourage('{"dict":[[2451.168972015381,1181.9971132278442,3466.7012672424316,2323.7029237747192],[2611.9561500549316,1342.7636232376099,3086.913242340088,2143.1909952163696],[2734.6430168151855,1278.3356065750122,3400.8985862731934,2100.757487297058],[1152.781831741333,740.3443279266357,3128.3105850219727,2959.332618713379],[2061.0399627685547,1065.4829578399658,3531.100685119629,2775.742115020752]]}
+
+    ', "../img/results/result3.png", 500, 500);
+     /*
+    out put  d'index
+    {$JSON "dict":[[1868.0592041015625,1431.3135738372803,2956.51407623291,2809.6590728759766]]}
+
+    $IM object(stdClass)#1 (1) 
+    
+    { ["dict"]=> array(1) { [0]=> array(4) { [0]=> float(1868.0592041016) [1]=> float(1431.3135738373) [2]=> float(2956.5140762329) [3]=> float(2809.659072876) } } } 
+    Resource id #4____x1 org: 9223372036854775807y1 org: 9223372036854775807
+width org height org x1 : 3532 y1 : 2524 width 500 height 500../img/crop/object6_crop2.jpeg
+
+    */
 
 ?>

@@ -1,6 +1,6 @@
 <?php
 //***clear image folder
-/*$folder = '../img/';
+$folder = '../image/';
 $files = glob($folder . '/*');
  
 foreach($files as $file){
@@ -10,7 +10,7 @@ foreach($files as $file){
         unlink($file);
     }
 }
-*/
+
 //***save image as image.extension
 $target_dir = "../img/sources/";
 $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
@@ -47,8 +47,7 @@ if ($uploadOk == 0) {
     echo "Sorry, your file was not uploaded.";
 // if everything is ok, try to upload file
 } else {
-    //if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir . "image.".$imageFileType)) { 
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir . "image.jpg")) { 
+    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_dir . "image.".$imageFileType)) { 
         echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
     } else {
         echo "Sorry, there was an error uploading your file.";
