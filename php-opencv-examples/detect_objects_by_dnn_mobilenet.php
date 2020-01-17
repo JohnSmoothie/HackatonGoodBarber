@@ -5,7 +5,7 @@ use function CV\{imread, cvtColor};
 
 $image = $_GET["nomImage"];
 
-
+//var_dump($image);
 //$categories = explode("\n", file_get_contents('models/ssd_mobilenet_v1_coco/classes.txt'));
 $categories = explode("\n", file_get_contents('models/ssdlite_mobilenet_v2_coco/classes.txt'));
 
@@ -39,22 +39,24 @@ for ($i = 0; $i < $r->shape[2]; $i++) {
         $startY = $r->atIdx([0,0,$i,4]) * $src->rows;
         $endX = $r->atIdx([0,0,$i,5]) * $src->cols;
         $endY = $r->atIdx([0,0,$i,6]) * $src->rows;
+        
 
         $coord["startX"] = $startX;
         $coord["startY"] = $startY;
         $coord["endX"] = $endX;
         $coord["endY"] = $endY ;       
-        $coord["pourcentage"] = $confidence;
-        $data[$i] = $coord;
-        //array_push($data, $coord);
+        
+       // $coord["pourcentage"] = $confidence;
+        //$data[$i] = $coord;
+        array_push($data, $coord);
         $scalar = new Scalar(0, 0, 255);
         \CV\rectangle($src, $startX, $startY, $endX, $endY, $scalar, 2);
-
+        //var_dump($coord);
         $text = "{$categories[$classId]} $confidence%";
         \CV\rectangle($src, $startX, $startY + 10, $startX + 20 * strlen($text), $startY - 30, new Scalar(255,255,255), -2);
         \CV\putText($src, "{$categories[$classId]} $confidence%", new \CV\Point($startX, $startY - 2), 0, 1.5, new Scalar(), 2);
     }
-
+    
 }
 
 

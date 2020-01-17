@@ -1,22 +1,23 @@
 $(document).ready(function(){
 
-    var valider = $("valider");
+    var valider = $("#valider");
 
 
     valider.click(function () {
-        var dict = {};
+        var dict = [];
+        
+        var nomImage = "../img/sources/object6.jpg";
 
-        var nomImage = "../img/sources/image.jpg";
+        var largeur = $("#largeur").val();
 
-        var largeur = $("largeur");
-
-        var hauteur = $("hauteur")
-
+        var hauteur = $("#hauteur").val();
+        console.log(largeur)
+        console.log(hauteur)
         $.ajax({
             type: 'GET',
             url: 'php-opencv-examples/detect_objects_by_dnn_mobilenet.php',
             data: {
-                ImageName: nomImage
+                nomImage: nomImage
             },
             success: function (data) {
                 console.log(data);
@@ -25,32 +26,40 @@ $(document).ready(function(){
                     var startY = rectangle.startY;
                     var endX = rectangle.endX;
                     var endY = rectangle.endY;
-                    var pourcentage = rectangle.pourcentage;
+                    //var pourcentage = rectangle.pourcentage;
 
-                    list = [startX, startY, endX, endY, pourcentage];
+                    //list = [startX, startY, endX, endY, pourcentage];
+                    list = [startX, startY, endX, endY];
 
-                    dict.add(list);
+                    dict.push(list);
 
                 });
-
+                console.log('depart');
                 console.log(dict);
+                $.ajax({
+                    type: 'POST',
+                    url: 'php/index.php',
+
+                    data: {
+                        rectangle: JSON.stringify({dict:dict}),
+        
+                        path: '/img/results/object6.png',
+                        hauteur: hauteur,
+                        largeur: largeur,
+                    },
+                    success: function (data) {
+                        console.log('ss');
+                    }
+                });
+                console.log('fin');
             }
+
+
+           
+    
         });
 
 
-        $.ajax({
-            type: 'POST',
-            url: 'php/index.php',
-            data: {
-                rectangle: JSON.stringify({dict : dict}),
-                path: '/img/results/result.png',
-                hauteur: hauteur,
-                largeur: largeur,
-            },
-            success: function (data) {
-
-            }
-        });
-
+      
     });
 });
