@@ -43,12 +43,14 @@ for ($i = 0; $i < $r->shape[2]; $i++) {
         $coord["startX"] = $startX;
         $coord["startY"] = $startY;
         $coord["endX"] = $endX;
-        $coord["endY"] = $endY ;       
-       
+        $coord["endY"] = $endY ;    
+        
+        $g = $r->atIdx([0,0,$i,3]);
+        
         array_push($data, $coord);
         $scalar = new Scalar(0, 0, 255);
         \CV\rectangle($src, $startX, $startY, $endX, $endY, $scalar, 2);
-       
+        
         $text = "{$categories[$classId]} $confidence%";
         \CV\rectangle($src, $startX, $startY + 10, $startX + 20 * strlen($text), $startY - 30, new Scalar(255,255,255), -2);
         \CV\putText($src, "{$categories[$classId]} $confidence%", new \CV\Point($startX, $startY - 2), 0, 1.5, new Scalar(), 2);
