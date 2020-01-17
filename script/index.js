@@ -2,6 +2,10 @@ $(document).ready(function(){
 
     var valider = $("#valider");
 
+    var imgSquare = $("imgSquare");
+
+    var imgCrop = $("imgCrop");
+
 
     valider.click(function () {
         var dict = [];
@@ -34,7 +38,8 @@ $(document).ready(function(){
                     dict.push(list);
 
                 });
-                console.log('depart');
+          imgSquare.prepend($('<img>',{id:'imageSquares',src:'img/results/result.png'}));
+
                 console.log(dict);
                 $.ajax({
                     type: 'POST',
@@ -54,9 +59,18 @@ $(document).ready(function(){
                 console.log('fin');
             }
 
-
-           
-    
+        $.ajax({
+            type: 'POST',
+            url: 'php/index.php',
+            data: {
+                rectangle: JSON.stringify({dict : dict}),
+                path: '/img/results/result.png',
+                hauteur: hauteur,
+                largeur: largeur,
+            },
+            success: function (data) {
+                imgSquare.prepend($('<img>',{id:'imageCropped',src:'img/crop/image_crop.png'}));
+            }
         });
 
 
